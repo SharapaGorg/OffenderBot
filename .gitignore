@@ -3,3 +3,4 @@ env/
 __pycache__/
 handlers/__pycache__
 database/base
+app.log
