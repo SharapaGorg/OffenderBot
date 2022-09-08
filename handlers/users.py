@@ -3,7 +3,7 @@ from controller import dp, bot
 from database import *
 import string, random
 import logger
-from utils import choose_channel
+from utils import *
 
 class Button(InlineKeyboardButton):
     def __init__(self, *args, **kwargs):
@@ -43,3 +43,11 @@ async def settings(message: Message):
 
     await message.answer("Выбери чат, для которого хочешь поменять настройки", reply_markup=markup)
 
+@dp.message_handler(state = Settings.username)
+async def choose_user(message : Message, state : FSMContext):
+    try:   
+        user = await bot.get_chat_member(state.chat, message.text)
+    except Exception as e:
+        print(e)
+        await message.answer("Не могу найти такого..")
+        return
