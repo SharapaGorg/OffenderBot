@@ -1,5 +1,6 @@
 from aiogram.types import BotCommand
 from controller import bot
+from database import *
 
 async def startup(message):
     suggesting_commands = [

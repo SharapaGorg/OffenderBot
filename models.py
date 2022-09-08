@@ -18,4 +18,11 @@ class Property(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String, nullable=False)
     channel_id = Column(String, nullable=False)
-    value = Column(String,)
+    value = Column(String, nullable=True)
+
+class Admin(Base):
+    __tablename__ = 'admins'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(String, nullable=False)
+    channel_id = Column(String, nullable=False)

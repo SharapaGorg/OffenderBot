@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from config import TOKEN 
-from database import Base
+from models import Base
 
 ###### APP ######
 
