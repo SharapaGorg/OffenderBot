@@ -15,7 +15,7 @@ from models import Admin
 
 
 def get_admins(
-    channel_id: str,
+    channel_id: str = None,
     user_id: str = None
 ) -> list[Admin]:
 
@@ -59,8 +59,8 @@ def add_admin(
 
 
 def delete_admin(
-    user_id: str,
-    channel_id: str,
+    user_id: str = None,
+    channel_id: str = None,
 ) -> None:
 
     _session = Session()
