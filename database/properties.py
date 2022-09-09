@@ -61,7 +61,7 @@ def add_property(
 def delete_property(
     user_id: str,
     channel_id: str,
-    value: str
+    value: str = None
 ) -> None:
 
     _session = Session()
