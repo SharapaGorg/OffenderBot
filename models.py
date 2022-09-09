@@ -26,3 +26,18 @@ class Admin(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String, nullable=False)
     channel_id = Column(String, nullable=False)
+
+class Phrase(Base):
+    __tablename__ = 'phrases'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+    phrase = Column(String, nullable=False)
+
+class Moderator(Base):
+    # for some reason moderator > admin in this bot.............
+    __tablename__ = 'moderators'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(String, nullable=False)
+    username = Column(String, nullable=True)

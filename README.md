@@ -1,6 +1,6 @@
 # Offender Bot
 
-### Quick start
+## Quick start
 
 **Install dependencies**
 
@@ -19,3 +19,16 @@ TOKEN = 'bot token here'
 ```
 python main.py
 ```
+
+## Hierarchy
+
+- **Moderator** - can edit global settings of bot
+- **Admin** - can edit local settings of group/chat
+- **Chat member** - dummy
+
+## Database
+
+- **admins** - list of admins
+- **moderators** - list of administrators
+- **properties** - options, that help to offend better
+- **phrases** - list of phrases for different names
