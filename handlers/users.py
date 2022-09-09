@@ -34,7 +34,7 @@ async def choose_user(message : Message, state : FSMContext):
             data['user'] = user
 
             member = (await bot.get_chat_member(data['chat'].id, user.id)).user
-
+    
         content = "Умничка, я смог найти этого чела:\n\n"
         content += f"<b>{member.full_name}</b>\n"
         content += f"<b>@{member.username}</b>\n"
