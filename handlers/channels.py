@@ -26,7 +26,6 @@ async def leave_event(message : Message):
 
 @dp.message_handler(content_types=ContentType.TEXT)
 async def check_chat_messages(message : Message):
-    print('something')
     author, chat, me = await general_info(message)
 
     props = get_properties(chat.id, author)

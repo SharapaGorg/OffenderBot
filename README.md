@@ -20,6 +20,10 @@ TOKEN = 'bot token here'
 python main.py
 ```
 
+## Official bot
+
+https://t.me/offend_insult_bot
+
 ## Hierarchy
 
 - **Moderator** - can edit global settings of bot
@@ -32,3 +36,4 @@ python main.py
 - **moderators** - list of administrators
 - **properties** - options, that help to offend better
 - **phrases** - list of phrases for different names
+
