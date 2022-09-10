@@ -56,7 +56,7 @@ async def choose_user(message: Message, state: FSMContext):
 
 
 @dp.message_handler(state='*', commands='cancel')
-@dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
+# @dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
 async def cancel_handler(message: types.Message, state: FSMContext):
     """
     Allow user to cancel any action
