@@ -4,13 +4,14 @@ from controller import dp, bot
 from database import *
 from utils import *
 
+
 @dp.message_handler(commands=['start'])
 async def start(message: Message):
     await message.answer("Приветствую, жду не дождусь новых указаний!")
 
 
 @dp.message_handler(commands=['settings'])
-async def settings(message: Message, state : FSMContext):
+async def settings(message: Message, state: FSMContext):
     author = message.from_user.id
     markup = InlineKeyboardMarkup()
 
@@ -28,16 +29,17 @@ async def settings(message: Message, state : FSMContext):
 
     await message.answer("Выбери чат, для которого хочешь поменять настройки", reply_markup=markup)
 
-@dp.message_handler(state = Settings.username)
-async def choose_user(message : Message, state : FSMContext):
-    try:   
+
+@dp.message_handler(state=Settings.username)
+async def choose_user(message: Message, state: FSMContext):
+    try:
         user = message.forward_from
 
         async with state.proxy() as data:
             data['user'] = user
 
             member = (await bot.get_chat_member(data['chat'].id, user.id)).user
-    
+
         content = "Умничка, я смог найти этого чела:\n\n"
         content += f"<b>{member.full_name}</b>\n"
         content += f"<b>@{member.username}</b>\n"
@@ -52,8 +54,23 @@ async def choose_user(message : Message, state : FSMContext):
         await message.answer(SETTINGS_CHOOSE_USER)
         return
 
-@dp.message_handler(state = Settings.name)
-async def add_new_user(message : Message, state : FSMContext):
+
+@dp.message_handler(state='*', commands='cancel')
+@dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
+async def cancel_handler(message: types.Message, state: FSMContext):
+    """
+    Allow user to cancel any action
+    """
+    current_state = await state.get_state()
+    if current_state is None:
+        return
+
+    await state.finish()
+    await message.reply('Cancelled.', reply_markup=types.ReplyKeyboardRemove())
+
+
+@dp.message_handler(state=Settings.name)
+async def add_new_user(message: Message, state: FSMContext):
     name = message.text
 
     async with state.proxy() as data:
@@ -69,4 +86,3 @@ async def add_new_user(message : Message, state : FSMContext):
 
     await state.finish()
     await message.answer(f"Так и запишу: <b>{message.text}</b>")
-
