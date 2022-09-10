@@ -57,7 +57,7 @@ async def choose_user(message: Message, state: FSMContext):
 
 @dp.message_handler(state='*', commands='cancel')
 # @dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
-async def cancel_handler(message: types.Message, state: FSMContext):
+async def cancel_handler(message: Message, state: FSMContext):
     """
     Allow user to cancel any action
     """
@@ -66,7 +66,7 @@ async def cancel_handler(message: types.Message, state: FSMContext):
         return
 
     await state.finish()
-    await message.reply('Cancelled.', reply_markup=types.ReplyKeyboardRemove())
+    await message.reply('Cancelled.', reply_markup=ReplyKeyboardRemove())
 
 
 @dp.message_handler(state=Settings.name)
