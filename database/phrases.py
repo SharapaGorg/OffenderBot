@@ -2,7 +2,7 @@
 
 Methods to interact with table named phrases
 
-- get_phrases(name : str, phrase : str = None)
+- get_phrases(name : str = None, phrase : str = None)
 - add_phrase(name : str, phrase : str)
 - delete_property(name : str, phrase : str)
 
@@ -13,10 +13,13 @@ from sqlalchemy import *
 from controller import Session
 from models import Phrase
 
-def get_phrases(name : str, phrase : str = None) -> list[Phrase]:
+def get_phrases(name : str = None, phrase : str = None) -> list:
     _session = Session()
 
-    phrases = select(Phrase).where(Phrase.name == name)
+    phrases = select(Phrase)
+
+    if name is not None:
+        phrases = phrases.where(Phrase.name == name)
 
     if phrase is not None:
         phrases = phrases.where(Phrase.phrase == phrase)

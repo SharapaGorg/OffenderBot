@@ -18,7 +18,7 @@ def get_properties(
     channel_id: str,
     user_id: str = None,
     value: str = None
-) -> list[Property]:
+) -> list:
 
     _session = Session()
 

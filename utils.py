@@ -13,13 +13,13 @@ from database import *
 async def startup(message):
     suggesting_commands = [
         BotCommand("/help", description="Подсказка"),
-        BotCommand("/settings", description="Настройки обзывательств")
+        BotCommand("/settings", description="Настройки обзывательств"),
+        BotCommand("/dictionary", description="Изменить глобальный словарь")
     ]
 
     await bot.set_my_commands(suggesting_commands)
 
 ####### USABLE TOOLS #######
-
 
 class Button(InlineKeyboardButton):
     def __init__(self, *args, **kwargs):
@@ -59,6 +59,12 @@ class Settings(StatesGroup):
     username = State()
     name = State()
 
+class NewName(StatesGroup):
+    name = State()
+    phrase = State()
+
+class NewPhrase(StatesGroup):
+    phrase = State()
 
 async def choose_channel(message: Message, chat: Chat, state: FSMContext):
     author, me = await callback_general_info(message)
@@ -125,3 +131,18 @@ async def add_user(message: Message):
 
     await Settings.username.set()
     await bot.send_message(author, SETTINGS_ADD_USER)
+
+async def add_new_phrase(message : Message):
+    author = message.from_user
+
+    await NewName.name.set()
+    await bot.send_message(author.id, "Тогда введи имя, которое хочешь добавить")
+
+async def add_phrase_by_name(message : Message, state : FSMContext, name : str):
+    author = message.from_user
+
+    async with state.proxy() as data:
+        data['name'] = name
+
+    await NewName.phrase.set()
+    await bot.send_message(author.id, ADD_PHRASE)

@@ -13,7 +13,7 @@ from sqlalchemy import *
 from controller import Session
 from models import Moderator
 
-def get_moderators(user_id : str = None, username : str = None) -> list[Moderator]:
+def get_moderators(user_id : str = None, username : str = None) -> list:
     _session = Session()
 
     moders = select(Moderator).where(Moderator.user_id == user_id)

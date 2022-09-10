@@ -17,7 +17,7 @@ from models import Admin
 def get_admins(
     channel_id: str = None,
     user_id: str = None
-) -> list[Admin]:
+) -> list:
 
     _session = Session()
 

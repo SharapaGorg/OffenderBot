@@ -17,7 +17,10 @@ async def settings(message: Message, state : FSMContext):
     groups = get_admins(user_id=author)
 
     for group in groups:
-        chat = await bot.get_chat(group.channel_id)
+        try:
+            chat = await bot.get_chat(group.channel_id)
+        except:
+            continue
 
         button = Button(chat.title)
         button.onClick(choose_channel, chat=chat, state=state)
@@ -66,3 +69,4 @@ async def add_new_user(message : Message, state : FSMContext):
 
     await state.finish()
     await message.answer(f"Так и запишу: <b>{message.text}</b>")
+
