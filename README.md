@@ -37,3 +37,5 @@ https://t.me/offend_insult_bot
 - **properties** - options, that help to offend better
 - **phrases** - list of phrases for different names
 
+https://user-images.githubusercontent.com/62620955/189478508-36e9192c-50d2-4b22-b4c8-ab50614ccf9c.mp4
+
