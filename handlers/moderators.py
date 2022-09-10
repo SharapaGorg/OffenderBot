@@ -10,6 +10,19 @@ class AdminCheck(StatesGroup):
     password = State()
 
 
+@dp.message_handler(state='*', text='cancel')
+async def cancel_handler(message: Message, state: FSMContext):
+    """
+    Allow user to cancel any action
+    """
+
+    current_state = await state.get_state()
+    if current_state is None:
+        return
+
+    await state.finish()
+    await message.reply('Ну и катись', reply_markup=ReplyKeyboardRemove())
+
 @dp.message_handler(commands=['dictionary'])
 async def moderate_dictionary(message: Message, state: FSMContext):
     author, chat, me = await general_info(message)
