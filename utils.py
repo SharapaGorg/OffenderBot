@@ -66,6 +66,9 @@ class NewName(StatesGroup):
 class NewPhrase(StatesGroup):
     phrase = State()
 
+class AcceptAction(StatesGroup):
+    answer = State()
+
 async def choose_channel(message: Message, chat: Chat, state: FSMContext):
     author, me = await callback_general_info(message)
     content = SETTINGS_USERS + '\n\n'
@@ -146,3 +149,31 @@ async def add_phrase_by_name(message : Message, state : FSMContext, name : str):
 
     await NewName.phrase.set()
     await bot.send_message(author.id, ADD_PHRASE)
+
+async def remove_phrases_by_name(message : Message, name : str):
+    author = message.from_user
+    await bot.send_message(author.id, "Оке, удаляю")
+
+async def accept_action(message : Message, coro, *args, **kwargs):
+    author = message.from_user
+    markup = InlineKeyboardMarkup()
+    
+    yes = Button("Да")
+    no = Button("Нет")
+
+    yes.onClick(accept, coro, *args, **kwargs)
+    no.onClick(decline)
+
+    markup.row(yes, no)
+
+    await bot.send_message(author.id, "Уверен, что хочешь выполнить это действи?", reply_markup=markup)
+
+async def accept(message : CallbackQuery, coro, *args, **kwargs):
+    author = message.from_user
+    await bot.send_message(author.id, "Принято")
+
+    await coro(message, *args, **kwargs)
+
+async def decline(message : CallbackQuery):
+    author = message.from_user
+    await bot.send_message(author.id, "Отклонено")

@@ -53,9 +53,12 @@ async def moderate_dictionary(message: Message, state: FSMContext):
 
     for phrase in phrases:
         button = Button(f"{phrase} ({phrases[phrase]})")
-        button.onClick(add_phrase_by_name, state, phrase)
+        remove = Button("Удалить")
 
-        markup.add(button)
+        button.onClick(add_phrase_by_name, state, phrase)
+        remove.onClick(accept_action, remove_phrases_by_name, phrase)
+
+        markup.row(button, remove)
 
     await bot.send_message(author, ACCEPT_MODERATOR, reply_markup=markup)
 
